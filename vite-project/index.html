@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml"  />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carthive</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+
+
+<script>
+  function toggle_light_mode() {
+      var app = document.getElementsByTagName("BODY")[0];
+      if (localStorage.lightMode == "dark") {
+    localStorage.lightMode = "light";
+    app.setAttribute("light-mode", "light");
+      } else {
+    localStorage.lightMode = "dark";
+    app.setAttribute("light-mode", "dark");
+      }		
+  }
+  </script>
