@@ -3,21 +3,38 @@ import { FollowerPointerCard } from "./ui/following-pointer";
 
 export default function NewsCard() {
 
+
+
+
   const NewsComponent = () => {
     const [articles, setArticles] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-      const apiKey = '8fc15f108930477680fc60e6e9f7d534';
-      const url = `https://newsapi.org/v2/everything?q=tesla&from=2024-12-07&sortBy=publishedAt&apiKey=${apiKey}`;
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() ).padStart(2, '0'); // Months are zero-based
+      const day = String(today.getDate()).padStart(2, '0');
+      const formattedDate = `${year}-${month}-${day}`;
+      const apiKey = '8fc15f108930477680fc60e6e9f7d534'; // Replace with your actual API key
+      const query = 'tesla'; // Or any other keyword you're interested in
+      const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&from=${formattedDate}&sortBy=publishedAt&apiKey=${apiKey}`;
+      
+    console.log(year, month, day,formattedDate);
 
       const fetchData = async () => {
         try {
           const response = await fetch(url);
           const data = await response.json();
-          setArticles(data.articles);
+          console.log('Fetched data:', data); // Log the API response
+          if (Array.isArray(data.articles)) {
+            setArticles(data.articles);
+          } else {
+            throw new Error('No articles found or articles is not an array');
+          }
         } catch (error) {
+          console.error('Fetch error:', error); // Log the error
           setError(error);
         } finally {
           setLoading(false);
@@ -44,11 +61,13 @@ export default function NewsCard() {
           >
             <div className="relative overflow-hidden h-full rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100">
               <div className="w-full aspect-w-16 aspect-h-10 bg-gray-100 rounded-tr-lg rounded-tl-lg overflow-hidden xl:aspect-w-16 xl:aspect-h-10 relative">
-                <img
-                  src={article.urlToImage}
-                  alt="thumbnail"
-                  className="group-hover:scale-95 group-hover:rounded-2xl transform object-cover transition duration-200"
-                />
+                {article.urlToImage && (
+                  <img
+                    src={article.urlToImage}
+                    alt="thumbnail"
+                    className="group-hover:scale-95 group-hover:rounded-2xl transform object-cover transition duration-200"
+                  />
+                )}
               </div>
               <div className="p-4">
                 <h2 className="font-bold my-4 text-lg text-zinc-700">
@@ -77,13 +96,15 @@ export default function NewsCard() {
 
   const TitleComponent = ({ title, avatar }) => (
     <div className="flex space-x-2 items-center">
-      <img
-        src={avatar}
-        height="20"
-        width="20"
-        alt="thumbnail"
-        className="rounded-full border-2 border-white"
-      />
+      {avatar && (
+        <img
+          src={avatar}
+          height="20"
+          width="20"
+          alt="thumbnail"
+          className="rounded-full border-2 border-white"
+        />
+      )}
       <p>{title}</p>
     </div>
   );

@@ -7,6 +7,7 @@ const handleLogout = () => {
     const dispatch = useDispatch();
 
      dispatch(loginActions.logout());
+     localStorage.clear();
 }
 
 const LogoutBtn = () => {

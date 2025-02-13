@@ -40,7 +40,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/watchlist', newStock);
+      await axios.post('http://localhost:5000/api/stocks/watchlist', newStock);
       setStocks([...stocks, newStock]);
       setNewStock({
         company: '',

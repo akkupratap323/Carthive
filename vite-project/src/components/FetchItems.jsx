@@ -16,7 +16,7 @@ const FetchItems = () => {
      
      dispatch(fetchStatusActions.markFetchingStarted());
 
-     fetch("http://localhost:8097/items", { signal })
+     fetch("http://localhost:5000/api/items", { signal })
        .then((res) => res.json())
        .then(({ items }) => {
          dispatch(fetchStatusActions.markFetchDone());
@@ -33,7 +33,7 @@ const FetchItems = () => {
        });
 
      return () => {
-       console.log("cleaning up useEffect");
+      
        controller.abort();
      };
    }, [dispatch, fetchStatus.fetchDone]);

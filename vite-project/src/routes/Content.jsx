@@ -1,12 +1,6 @@
 "use client";
 import React from "react";
-import { BackgroundBeams } from "../components/ui/background-beams";
 import ContentCards from "./ContentCards";
-import {
-  TextRevealCard,
-  TextRevealCardDescription,
-  TextRevealCardTitle,
-} from "../components/ui/text-reveal-card";
 
 export default function Content() {
   const values1 = {
@@ -33,30 +27,15 @@ export default function Content() {
 
   return (
     <>
-    <div className="h-[40rem] w-full rounded-md bg-white relative flex flex-col items-center justify-center antialiased">
-      <div className="max-w-2xl mx-auto p-4 flex items-center justify-center w-full flex-col px-4">
-       
-        <div className="flex space-x-4"> 
-          <ContentCards values={values1} />
-          <ContentCards values={values2} />
-          <ContentCards values={values3} />    
+      <div className="h-auto w-full bg-white flex flex-col items-center justify-center py-10 px-4">
+        <div className="max-w-4xl w-full flex flex-col items-center justify-center">
+          <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-6">
+            <ContentCards values={values1} />
+            <ContentCards values={values2} />
+            <ContentCards values={values3} />
+          </div>
         </div>
-        
       </div>
-      <BackgroundBeams />
-    </div>
-    <div className="flex items-center justify-center bg-[#0E0E10] h-[40rem] rounded-2xl w-full">
-    <TextRevealCard
-      text="You know the business"
-      revealText="I know the chemistry">
-      <TextRevealCardTitle>
-        Sometimes, you just need to see it.
-      </TextRevealCardTitle>
-      <TextRevealCardDescription>
-        This is a text reveal card. Hover over the card to reveal the hidden text.
-      </TextRevealCardDescription>
-    </TextRevealCard>
-  </div>
-  </>
+    </>
   );
 }

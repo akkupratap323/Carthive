@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom"
 import FetchItems from "../components/FetchItems"
 import { useSelector } from "react-redux"
 import LoadingSpinner from "../components/LoadingSpinner"
+import Home2 from "./Home2"
 
 
 function App() {
@@ -16,8 +17,7 @@ function App() {
         <Header/>
         <FetchItems/>  
       {fetchStatus.currentlyFetching ? <LoadingSpinner   /> :<Outlet/> } 
-        
-    <Footer></Footer>
+      <Footer></Footer>
     </>
   )
 }

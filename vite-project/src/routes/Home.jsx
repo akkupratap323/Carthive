@@ -9,12 +9,11 @@ const Home = () => {
 
     return (
         <main>
-        <div className="items-container">
-            {items.map((item) => ( 
-                <HomeItems key ={item.id} item = {item}/>   
-           ) )}
-         
-        </div>
+         <div className="flex flex-wrap justify-between mx-auto max-w-screen-xl p-4">
+      {items.map(item => (
+        <HomeItems key={item.id} item={item} />
+      ))}
+    </div>
     </main> 
     )
 }

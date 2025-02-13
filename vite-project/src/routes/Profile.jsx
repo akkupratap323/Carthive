@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography, MDBIcon, MDBBtn } from 'mdb-react-ui-kit';
-import { useSelector } from 'react-redux';
-import { CiFacebook } from "react-icons/ci";
-import { CiTwitter } from "react-icons/ci";
+import { useSelector, useDispatch } from 'react-redux';
+import { CiFacebook, CiTwitter } from "react-icons/ci";
 import { SlSocialGoogle } from "react-icons/sl";
 import LogoutBtn from '../components/LogoutBtn';
+import { profileActions } from '../store/profileSlice';
 
 function Profile() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const response = await fetch('/api/getUserProfile');
+      const userProfile = await response.json();
+      if (userProfile) {
+        dispatch(profileActions.addProfile(userProfile));
+      }
+    };
+
+    fetchProfile();
+  }, [dispatch]);
+
   const profileStatus = useSelector((Store) => Store.ProfileStatus);
-  console.log(profileStatus);
+  const profileImage = profileStatus.profile.image || 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp';
+  console.log(profileStatus.profile.image);
+
   return (
     <section className="vh-100" style={{ backgroundColor: '#f4f5f7' }}>
       <MDBContainer className="py-5 h-100">
@@ -18,10 +34,10 @@ function Profile() {
               <MDBRow className="g-0">
                 <MDBCol md="4" className="gradient-custom text-center text-white d-flex flex-column align-items-center justify-content-center"
                   style={{ borderTopLeftRadius: '.5rem', borderBottomLeftRadius: '.5rem' }}>
-                  <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                  <MDBCardImage src={profileImage}
                     alt="Avatar" className="my-5" style={{ width: '80px' }} fluid />
                   <MDBTypography tag="h5">{profileStatus.profile.name}</MDBTypography>
-                  <MDBCardText>consumer</MDBCardText>
+                  <MDBCardText></MDBCardText>
                   <MDBIcon fas icon="edit mb-5" />
                 </MDBCol>
                 <MDBCol md="8">
@@ -35,7 +51,7 @@ function Profile() {
                       </MDBCol>
                       <MDBCol size="6" className="mb-3">
                         <MDBTypography tag="h6">Phone</MDBTypography>
-                        <MDBCardText className="text-muted">+918005729753</MDBCardText>
+                        <MDBCardText className="text-muted">+91***********</MDBCardText>
                       </MDBCol>
                     </MDBRow>
 
@@ -47,8 +63,8 @@ function Profile() {
                         <MDBCardText className="text-muted">102020</MDBCardText>
                       </MDBCol>
                       <MDBCol size="6" className="mb-3">
-                        <MDBTypography tag="h6">Phone</MDBTypography>
-                        <MDBCardText className="text-muted">123 456 789</MDBCardText>
+                        <MDBTypography tag="h6">UID</MDBTypography>
+                        <MDBCardText className="text-muted">{profileStatus.profile.uid}</MDBCardText>
                       </MDBCol>
                     </MDBRow>
                     <div className="d-flex justify-content-start">

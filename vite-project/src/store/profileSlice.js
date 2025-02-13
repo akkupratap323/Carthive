@@ -1,16 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-
 const ProfileSlice = createSlice({
-  
     name: 'profile',
     initialState: {
         profile: {
             name: "unknown",
             email: "unknown@gmail.com",
-            password: "",
+            password: "*********",
+            image: "",
+            uid: "*************",
+            phoneNumber: ""
         }
-    },reducers: {
+    },
+    reducers: {
         addProfile: (state, action) => {
             state.profile = action.payload;
         },
@@ -19,12 +21,14 @@ const ProfileSlice = createSlice({
                 name: "",
                 email: "",
                 password: "",
-            }
+                image: "",
+                uid: "",
+                phoneNumber: ""
+            };
         }
     }
-    
-})
+});
 
 export const profileActions = ProfileSlice.actions;
-    
- export default ProfileSlice;
+
+export default ProfileSlice;
